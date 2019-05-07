@@ -1,0 +1,37 @@
+import codecademylib
+import numpy as np
+
+calorie_stats = np.genfromtxt('cereal.csv', delimiter = ',')
+
+average_calories = np.mean(calorie_stats)
+print(average_calories)
+print('-------------------------------------')
+# 107-60 = 46.88 more calories on average
+calorie_stats_sorted = np.sort(calorie_stats)
+print(calorie_stats_sorted)
+print('-------------------------------------')
+median_calories = np.median(calorie_stats)
+print(median_calories)
+print('-------------------------------------')
+fifth_percentile = np.percentile(calorie_stats, 5)
+print(fifth_percentile)
+first_percentile = np.percentile(calorie_stats, 1)
+print(first_percentile)
+third_percentile = np.percentile(calorie_stats, 3)
+print(third_percentile)
+fourth_percentile = np.percentile(calorie_stats, 4)
+print(fourth_percentile)
+nth_percentile = fourth_percentile
+more_calories = np.mean(calorie_stats > 60)
+print('-------------------------------------')
+print(more_calories)
+print('-------------------------------------')
+calorie_std = np.std(calorie_stats)
+print(calorie_std)
+
+#The data shows that the average calorie count is approximately \
+#107 with a standard deviation of about 19. What this means is that \
+#most of the data falls between 88 and 126. This could be used to market\
+#CrunchieMunchies as in a field of their own, because they have such fewer \
+#calories than the standard cereals. They have less calories than 96% \
+#of cereals on the market. 
