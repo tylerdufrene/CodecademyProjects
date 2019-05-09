@@ -1,0 +1,12 @@
+import numpy as np
+
+a = 'knows the material'
+b = 'Answers Correctly'
+knows_material = 0.60
+doesnt_know = 0.40
+knows_and_answered_correct = 0.85
+doesnt_know_still_correct = 0.20
+answer_correct = (knows_material) * (knows_and_answered_correct) + (doesnt_know) * (doesnt_know_still_correct)
+
+p_actually_knows = (knows_and_answered_correct) * (knows_material) / answer_correct
+print(p_actually_knows)
