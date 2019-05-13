@@ -1,0 +1,68 @@
+import numpy as np
+import fetchmaker
+from scipy.stats import binom_test
+from scipy.stats import f_oneway
+from scipy.stats import chi2_contingency
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+
+rottweiler_tl = fetchmaker.get_tail_length('rottweiler')
+
+rottweiler_tl_mean = np.mean(rottweiler_tl)
+rottweiler_tl_std = np.std(rottweiler_tl)
+print rottweiler_tl_mean
+#4.2361
+print rottweiler_tl_std
+#2.065
+print '--------------------'
+
+whippet_rescue = fetchmaker.get_is_rescue('whippet')
+num_whippet_rescues = np.count_nonzero('whippet_rescue')
+print num_whippet_rescues #1
+num_whippets = np.size(whippet_rescue)
+print num_whippets #100
+
+pval = binom_test(1, 100, 0.08)
+print pval #0.0047
+# Yes, the pvalue is significant, the observed value is significantly different than the expected value
+print '--------------------'
+
+whippet_weight = fetchmaker.get_weight('whippet')
+terrier_weight = fetchmaker.get_weight('terrier')
+pitbull_weight = fetchmaker.get_weight('pitbull')
+
+fstat, weight_pval = f_oneway(whippet_weight, terrier_weight, pitbull_weight)
+print weight_pval #3.28e-17
+#The weights of the different breeds of dogs are statistically different
+print '--------------------'
+
+weight_concat = np.concatenate([whippet_weight, terrier_weight, pitbull_weight])
+labels = ['whippet_weight'] * len(whippet_weight) + ['terrier_weight'] * len(terrier_weight) +  ['pitbull_weight'] * len(pitbull_weight)
+tukey_results = pairwise_tukeyhsd(weight_concat, labels, 0.05)
+print tukey_results #True, False, True
+#More specifically, the weights of the pitbull and terrier and the terrier and the whippet were statistically different. The weights of the pittbull and whippet were not statistically different
+print '--------------------'
+
+poodle_colors = fetchmaker.get_color('poodle')
+shihtzu_colors = fetchmaker.get_color('shihtzu')
+
+brown_poodle = np.count_nonzero(poodle_colors == 'brown')
+white_poodle = np.count_nonzero(poodle_colors == 'white')
+grey_poodle = np.count_nonzero(poodle_colors == 'grey')
+black_poodle = np.count_nonzero(poodle_colors == 'black')
+poodle_color_array = [brown_poodle, white_poodle, grey_poodle, black_poodle]
+print poodle_color_array #[13,10,52,17]
+
+brown_shihtzu = np.count_nonzero(shihtzu_colors =='brown')
+white_shihtzu = np.count_nonzero(shihtzu_colors =='white')
+black_shihtzu = np.count_nonzero(shihtzu_colors =='black')
+grey_shihtzu = np.count_nonzero(shihtzu_colors =='grey')
+shihtzu_color_array = [brown_shihtzu, white_shihtzu, grey_shihtzu, black_shihtzu]
+print shihtzu_color_array #[36,7,41,10]
+
+color_table = [poodle_color_array, shihtzu_color_array]
+print color_table # [[13,10,52,17],[36,7,41,10]]
+
+chi2, poodle_shihtzu_pval, dof, expected = chi2_contingency(color_table)
+
+print poodle_shihtzu_pval #0.0024
+#There is a statistically significant difference between the distribution of colors between poodles and shihtzu's
