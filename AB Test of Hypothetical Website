@@ -12,6 +12,9 @@ print(df.head())
 	
 print purchase_counts
 
+
+
+
 contingency = [[316, 1350],
                [183, 1483], 
                [83, 1583]]
@@ -21,3 +24,19 @@ chi2, pvalue, dof, excluded = chi2_contingency(contingency)
 print pvalue
 
 is_significant = True
+
+
+
+
+num_visits = len(df)
+print num_visits
+
+num_sales1 = 1000.0 / 0.99
+num_sales2 = 1000.0 / 1.99
+num_sales3 = 1000.0 / 4.99
+p_clicks_099 = (num_sales1 * 100) / num_visits
+print p_clicks_099
+p_clicks_199 = (num_sales2 * 100) / num_visits
+print p_clicks_199
+p_clicks_499 = (num_sales3 * 100) / num_visits
+print p_clicks_499
