@@ -12,7 +12,10 @@ print(df.head())
 	
 print purchase_counts
 
-
+#uploaded the csv file 'Clicks'
+#Added a column called 'is_purchase' which adds a value 'Purchase' if the column 'click_day' is not empty. 
+	#Otherwise, enters value 'No Purchase'
+#Printed a table which groups each group(A,B,C) by whether or not it was purchased, and counts the value(user_id)
 
 
 contingency = [[316, 1350],
@@ -24,19 +27,36 @@ chi2, pvalue, dof, excluded = chi2_contingency(contingency)
 print pvalue
 
 is_significant = True
-
+#Run a Chi2 Test to see if the values are significantly different. They are
 
 
 
 num_visits = len(df)
-print num_visits
+print num_visits 
+#Total number of page visits/week = 4998
 
 num_sales1 = 1000.0 / 0.99
 num_sales2 = 1000.0 / 1.99
 num_sales3 = 1000.0 / 4.99
 p_clicks_099 = (num_sales1 * 100) / num_visits
-print p_clicks_099
+print p_clicks_099 
+#People would need to click 20% of the time
 p_clicks_199 = (num_sales2 * 100) / num_visits
-print p_clicks_199
+print p_clicks_199 
+#People would need to click 10% of the time
 p_clicks_499 = (num_sales3 * 100) / num_visits
 print p_clicks_499
+#People would need to click 5% of the time
+
+# ^ Calculate how many clicks each price point ($0.99, $1.99, $4.99) would need in order to reach goal of $1000
+
+pvalueA = binom_test(316, 1666, p_clicks_099)
+print pvalueA
+pvalueB = binom_test(183, 1666, p_clicks_199)
+print pvalueB
+pvalueC = binom_test(83, 1666, p_clicks_499)
+print pvalueC
+
+final_answer = 4.99
+#The price point at $4.99 is the only value that is statistically significant when determining whether it meets its revenue goal.
+
