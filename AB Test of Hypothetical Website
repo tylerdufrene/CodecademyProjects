@@ -1,5 +1,6 @@
 import codecademylib
 import pandas as pd
+from scipy.stats import chi2_contingency
 
 df = pd.read_csv('clicks.csv')
 print(df.head())
@@ -10,9 +11,6 @@ purchase_counts = df.groupby(['group','is_purchase']).user_id.count().reset_inde
 print(df.head())
 	
 print purchase_counts
-
-
-from scipy.stats import chi2_contingency
 
 contingency = [[316, 1350],
                [183, 1483], 
