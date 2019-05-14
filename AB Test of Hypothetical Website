@@ -10,3 +10,16 @@ purchase_counts = df.groupby(['group','is_purchase']).user_id.count().reset_inde
 print(df.head())
 	
 print purchase_counts
+
+
+from scipy.stats import chi2_contingency
+
+contingency = [[316, 1350],
+               [183, 1483], 
+               [83, 1583]]
+
+chi2, pvalue, dof, excluded = chi2_contingency(contingency)
+
+print pvalue
+
+is_significant = True
